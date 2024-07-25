@@ -4,6 +4,12 @@ import {useUserStore} from "~/stores/user";
 const userStore = useUserStore()
 const user = userStore.userInfo
 
+const gotoUserCenter = () => {
+  useRouter().push({
+    path: '/userCenter'
+  })
+}
+
 </script>
 
 <template>
@@ -39,6 +45,7 @@ const user = userStore.userInfo
           <v-btn
               variant="text"
               rounded
+              @click="gotoUserCenter"
           >
             个人中心
           </v-btn>
@@ -46,6 +53,7 @@ const user = userStore.userInfo
           <v-btn
               variant="text"
               rounded
+              @click="userStore.logout"
           >
             退出登录
           </v-btn>

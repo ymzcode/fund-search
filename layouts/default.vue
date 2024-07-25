@@ -1,20 +1,26 @@
 <script setup lang="ts">
 
+const goHome = () => {
+  useRouter().push({
+    path: '/'
+  })
+}
+
 </script>
 
 <template>
-  <v-app>
+  <v-app class="bg-grey-lighten-4">
     <v-app-bar :elevation="2">
       <v-app-bar-title>
         <div class="cpa-flex cpa-row cpa-align-center">
           <div>
-            <v-btn variant="text">
+            <v-btn variant="text" @click="goHome">
               LOGO名称
             </v-btn>
           </div>
           <div>|</div>
           <div>
-            <v-btn variant="text">
+            <v-btn variant="text" @click="goHome">
               海外科学基金
             </v-btn>
           </div>

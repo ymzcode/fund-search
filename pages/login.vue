@@ -5,7 +5,18 @@ definePageMeta({
 </script>
 
 <template>
-  <div>login</div>
+  <div>
+    <v-card
+        class="mx-auto"
+        max-width="300"
+    >
+      <v-list
+      >
+        <v-list-item>123</v-list-item>
+        <v-list-item>321</v-list-item>
+      </v-list>
+    </v-card>
+  </div>
 </template>
 
 <style scoped>

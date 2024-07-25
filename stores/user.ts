@@ -20,5 +20,11 @@ export const useUserStore = defineStore('user', {
         setUserInfo(userInfo: any) {
             this.userInfo = userInfo
         },
+        logout() {
+            this.token = ''
+            useRouter().push({
+                path: '/login'
+            })
+        }
     },
 })
