@@ -4,14 +4,18 @@ const filterParams = reactive({
 })
 
 const searchVal = ref('人工智能')
+const page = ref(0)
 
 const gotoArticle = (item:any) => {
-  useRouter().push({
+  const { href } = useRouter().resolve({
     path: '/articleDetails',
     query: {
       id: item
     },
   })
+
+  window.open(href, '_blank')
+
 }
 </script>
 
