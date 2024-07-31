@@ -313,6 +313,10 @@
   margin-right: 40px;
 }
 
+.cpa-radius-10 {
+  border-radius: 10px;
+}
+
 .cpa-radius-20 {
   border-radius: 20px;
 }
@@ -323,6 +327,10 @@
 
 .cpa-radius-50 {
   border-radius: 50%;
+}
+
+.cpa-font-12 {
+  font-size: 12px;
 }
 
 .cpa-font-14 {
