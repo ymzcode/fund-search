@@ -1,1 +1,0 @@
-import{aM as o,u as t}from"./DxoaqdtO.js";const n=o("user",{state:()=>({token:"",userInfo:{initials:"JD",fullName:"John Doe",email:"john.doe@doe.com"}}),getters:{},actions:{setToken(e){this.token=e},setUserInfo(e){this.userInfo=e},logout(){this.token="",t().push({path:"/login"})}}});export{n as u};
