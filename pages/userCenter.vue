@@ -1,37 +1,8 @@
 <script setup lang="ts">
 
-const listMenu = ref([1])
-const items = [
-  {
-    title: '首页',
-    value: 1,
-    props: {
-      prependIcon: 'mdi-home',
-    }
-  },
-  {
-    title: '安全中心',
-    value: 3,
-    props: {
-      prependIcon: 'mdi-lock-outline',
-    }
-  },
-  {
-    title: '我的邀请',
-    value: 2,
-    props: {
-      prependIcon: 'mdi-account-plus',
-    }
-  },
+import {useAppStore} from "~/stores/app";
 
-  {
-    title: '我的发票',
-    value: 4,
-    props: {
-      prependIcon: 'mdi-invoice-fast',
-    }
-  }
-]
+const useApp = useAppStore()
 </script>
 
 <template>
@@ -42,13 +13,14 @@ const items = [
             class="mx-auto pa-2"
             max-width="300"
         >
-            <v-list selectable v-model:selected="listMenu">
+          <v-list selectable v-model:selected="useApp.activeMenuItem">
             <v-list-item
-                v-for="(item, i) in items"
+                v-for="(item, i) in useApp.menuItem"
                 :key="item.value"
                 :value="item.value"
                 color="primary"
                 rounded="xl"
+                @click="useApp.clickMenuItem(item)"
             >
               <template v-slot:prepend>
                 <v-icon :icon="item.props?.prependIcon"></v-icon>
@@ -102,9 +74,10 @@ const items = [
 
               <v-card-text>
                 <div class="cpa-flex cpa-justify-around cpa-wrap">
-                  <div class="cpa-flex cpa-justify-between bg-grey-lighten-4 cpa-radius-10 cpa-p-10 cpa-border-box cpa-flex-1 cpa-mb-10">
+                  <div
+                      class="cpa-flex cpa-justify-between bg-grey-lighten-4 cpa-radius-10 cpa-p-10 cpa-border-box cpa-flex-1 cpa-mb-10">
                     <div class="cpa-flex cpa-column">
-                      <v-icon color="indigo"  size="30" icon="mdi-sign-text"></v-icon>
+                      <v-icon color="indigo" size="30" icon="mdi-sign-text"></v-icon>
                       <div class="cpa-my-10 cpa-color-info">我的邀请码</div>
                       <div class="cpa-weight-blod cpa-font-20">PNSWV</div>
                     </div>
@@ -120,7 +93,7 @@ const items = [
                   <div class="cpa-flex cpa-column bg-grey-lighten-4 cpa-radius-10 cpa-p-10 cpa-flex-1 cpa-mb-10">
                     <div class="cpa-flex cpa-justify-between">
                       <div class="cpa-flex cpa-column">
-                        <v-icon color="indigo"  size="30" icon="mdi-nature-people-outline"></v-icon>
+                        <v-icon color="indigo" size="30" icon="mdi-nature-people-outline"></v-icon>
                         <div class="cpa-my-10 cpa-color-info">我的邀请人</div>
                       </div>
 

@@ -34,6 +34,12 @@ const onSearch = () => {
   })
 }
 
+const onAdvancedSearch = () => {
+  useRouter().push({
+    path: '/advancedSearch'
+  })
+}
+
 onMounted(() => {
   const interBubble:any = document.querySelector('.interactive')
   let curX = 0;
@@ -101,7 +107,7 @@ onMounted(() => {
           <v-tab v-for="item in tabItem" :value="item.value" :text="item.label"></v-tab>
         </v-tabs>
 
-        <v-btn prepend-icon="mdi-file-search" variant="text" class="cpa-mt-10">高级搜索</v-btn>
+        <v-btn prepend-icon="mdi-file-search" variant="text" class="cpa-mt-10" @click="onAdvancedSearch">高级搜索</v-btn>
       </view>
 
 
