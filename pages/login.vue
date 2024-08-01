@@ -12,6 +12,22 @@ const tab = ref('1')
 const phoneFormRef = ref()
 const codeFormRef = ref()
 
+
+const items = [
+  {
+    src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',
+  },
+  {
+    src: 'https://cdn.vuetifyjs.com/images/carousel/sky.jpg',
+  },
+  {
+    src: 'https://cdn.vuetifyjs.com/images/carousel/bird.jpg',
+  },
+  {
+    src: 'https://cdn.vuetifyjs.com/images/carousel/planet.jpg',
+  },
+]
+
 // 验证码倒计时
 const CODE_SECOND = 60
 const userStore = useUserStore()
@@ -84,15 +100,24 @@ const changeTab = (val: any) => {
 </script>
 
 <template>
-  <v-row>
-    <v-col cols="8" class="cpa-relative">
-      <v-img
-          class="cpa-absolute cpa-top-0 cpa-left-0"
-          :aspect-ratio="1"
-          src="https://pic.imgdb.cn/item/66a9d9e6d9c307b7e9f4626f.webp"
-          cover
+  <v-row style="margin: 0">
+    <v-col style="padding: 0" cols="8" class="cpa-relative">
+      <v-carousel
           height="100%"
-      ></v-img>
+          show-arrows="hover"
+          cycle
+          hide-delimiter-background
+      >
+        <v-carousel-item
+            v-for="(item, i) in items"
+            :key="i"
+            :src="item.src"
+            cover
+        >
+
+        </v-carousel-item>
+      </v-carousel>
+
     </v-col>
     <v-col cols="4">
         <div class="cpa-w-full cpa-h-full cpa-flex cpa-column cpa-justify-center cpa-align-center">
@@ -215,6 +240,7 @@ const changeTab = (val: any) => {
 </template>
 
 <style scoped>
+
 .tab-top-right-btn {
   position: absolute;
   right: 0;
