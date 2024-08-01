@@ -76,17 +76,225 @@ const tab = ref(null)
           </v-tabs-window-item>
 
           <v-tabs-window-item value="2">
-            Two
+            <div class="search-wrapper cpa-flex cpa-align-center cpa-mt-10">
+              <v-sheet :width="170"></v-sheet>
+              <v-select
+                  class="common-select"
+                  label="项目名称"
+                  :items="['California', 'Colorado', 'Florida', 'Georgia', 'Texas', 'Wyoming']"
+                  variant="outlined"
+                  density="compact"
+                  clearable
+              ></v-select>
+              <v-text-field class="cpa-ml-20" label="请输入" variant="outlined" density="compact"></v-text-field>
+            </div>
+
+            <div class="search-wrapper cpa-flex cpa-align-center">
+              <v-select
+                  class="relation-select cpa-mr-20"
+                  label="关系"
+                  :items="['AND', 'OR', 'NOT']"
+                  variant="outlined"
+                  clearable
+                  density="compact"
+
+              ></v-select>
+              <v-select
+                  class="common-select"
+                  label="项目名称"
+                  :items="['California', 'Colorado', 'Florida', 'Georgia', 'Texas', 'Wyoming']"
+                  variant="outlined"
+                  clearable
+                  density="compact"
+              ></v-select>
+              <v-text-field class="cpa-ml-20" label="请输入" variant="outlined" density="compact"></v-text-field>
+            </div>
+
+            <div class="search-wrapper cpa-flex cpa-align-center">
+              <v-select
+                  class="relation-select cpa-mr-20"
+                  label="关系"
+                  :items="['AND', 'OR', 'NOT']"
+                  variant="outlined"
+                  clearable
+                  density="compact"
+              ></v-select>
+              <v-select
+                  class="common-select"
+                  label="项目名称"
+                  :items="['California', 'Colorado', 'Florida', 'Georgia', 'Texas', 'Wyoming']"
+                  variant="outlined"
+                  clearable
+                  density="compact"
+              ></v-select>
+              <v-text-field class="cpa-ml-20" label="请输入" variant="outlined" density="compact"></v-text-field>
+            </div>
           </v-tabs-window-item>
 
           <v-tabs-window-item value="3">
-            Three
+            <div class="search-wrapper cpa-flex cpa-align-center cpa-mt-10">
+              <v-sheet :width="170"></v-sheet>
+              <v-select
+                  class="common-select"
+                  label="项目名称"
+                  :items="['California', 'Colorado', 'Florida', 'Georgia', 'Texas', 'Wyoming']"
+                  variant="outlined"
+                  density="compact"
+                  clearable
+              ></v-select>
+              <v-text-field class="cpa-ml-20" label="请输入" variant="outlined" density="compact"></v-text-field>
+            </div>
+
+            <div class="search-wrapper cpa-flex cpa-align-center">
+              <v-select
+                  class="relation-select cpa-mr-20"
+                  label="关系"
+                  :items="['AND', 'OR', 'NOT']"
+                  variant="outlined"
+                  clearable
+                  density="compact"
+
+              ></v-select>
+              <v-select
+                  class="common-select"
+                  label="项目名称"
+                  :items="['California', 'Colorado', 'Florida', 'Georgia', 'Texas', 'Wyoming']"
+                  variant="outlined"
+                  clearable
+                  density="compact"
+              ></v-select>
+              <v-text-field class="cpa-ml-20" label="请输入" variant="outlined" density="compact"></v-text-field>
+            </div>
+
+            <div class="search-wrapper cpa-flex cpa-align-center">
+              <v-select
+                  class="relation-select cpa-mr-20"
+                  label="关系"
+                  :items="['AND', 'OR', 'NOT']"
+                  variant="outlined"
+                  clearable
+                  density="compact"
+              ></v-select>
+              <v-select
+                  class="common-select"
+                  label="项目名称"
+                  :items="['California', 'Colorado', 'Florida', 'Georgia', 'Texas', 'Wyoming']"
+                  variant="outlined"
+                  clearable
+                  density="compact"
+              ></v-select>
+              <v-text-field class="cpa-ml-20" label="请输入" variant="outlined" density="compact"></v-text-field>
+            </div>
           </v-tabs-window-item>
           <v-tabs-window-item value="4">
-            Three
+            <div class="search-wrapper cpa-flex cpa-align-center cpa-mt-10">
+              <v-sheet :width="170"></v-sheet>
+              <v-select
+                  class="common-select"
+                  label="项目名称"
+                  :items="['California', 'Colorado', 'Florida', 'Georgia', 'Texas', 'Wyoming']"
+                  variant="outlined"
+                  density="compact"
+                  clearable
+              ></v-select>
+              <v-text-field class="cpa-ml-20" label="请输入" variant="outlined" density="compact"></v-text-field>
+            </div>
+
+            <div class="search-wrapper cpa-flex cpa-align-center">
+              <v-select
+                  class="relation-select cpa-mr-20"
+                  label="关系"
+                  :items="['AND', 'OR', 'NOT']"
+                  variant="outlined"
+                  clearable
+                  density="compact"
+
+              ></v-select>
+              <v-select
+                  class="common-select"
+                  label="项目名称"
+                  :items="['California', 'Colorado', 'Florida', 'Georgia', 'Texas', 'Wyoming']"
+                  variant="outlined"
+                  clearable
+                  density="compact"
+              ></v-select>
+              <v-text-field class="cpa-ml-20" label="请输入" variant="outlined" density="compact"></v-text-field>
+            </div>
+
+            <div class="search-wrapper cpa-flex cpa-align-center">
+              <v-select
+                  class="relation-select cpa-mr-20"
+                  label="关系"
+                  :items="['AND', 'OR', 'NOT']"
+                  variant="outlined"
+                  clearable
+                  density="compact"
+              ></v-select>
+              <v-select
+                  class="common-select"
+                  label="项目名称"
+                  :items="['California', 'Colorado', 'Florida', 'Georgia', 'Texas', 'Wyoming']"
+                  variant="outlined"
+                  clearable
+                  density="compact"
+              ></v-select>
+              <v-text-field class="cpa-ml-20" label="请输入" variant="outlined" density="compact"></v-text-field>
+            </div>
           </v-tabs-window-item>
           <v-tabs-window-item value="5">
-            Three
+            <div class="search-wrapper cpa-flex cpa-align-center cpa-mt-10">
+              <v-sheet :width="170"></v-sheet>
+              <v-select
+                  class="common-select"
+                  label="项目名称"
+                  :items="['California', 'Colorado', 'Florida', 'Georgia', 'Texas', 'Wyoming']"
+                  variant="outlined"
+                  density="compact"
+                  clearable
+              ></v-select>
+              <v-text-field class="cpa-ml-20" label="请输入" variant="outlined" density="compact"></v-text-field>
+            </div>
+
+            <div class="search-wrapper cpa-flex cpa-align-center">
+              <v-select
+                  class="relation-select cpa-mr-20"
+                  label="关系"
+                  :items="['AND', 'OR', 'NOT']"
+                  variant="outlined"
+                  clearable
+                  density="compact"
+
+              ></v-select>
+              <v-select
+                  class="common-select"
+                  label="项目名称"
+                  :items="['California', 'Colorado', 'Florida', 'Georgia', 'Texas', 'Wyoming']"
+                  variant="outlined"
+                  clearable
+                  density="compact"
+              ></v-select>
+              <v-text-field class="cpa-ml-20" label="请输入" variant="outlined" density="compact"></v-text-field>
+            </div>
+
+            <div class="search-wrapper cpa-flex cpa-align-center">
+              <v-select
+                  class="relation-select cpa-mr-20"
+                  label="关系"
+                  :items="['AND', 'OR', 'NOT']"
+                  variant="outlined"
+                  clearable
+                  density="compact"
+              ></v-select>
+              <v-select
+                  class="common-select"
+                  label="项目名称"
+                  :items="['California', 'Colorado', 'Florida', 'Georgia', 'Texas', 'Wyoming']"
+                  variant="outlined"
+                  clearable
+                  density="compact"
+              ></v-select>
+              <v-text-field class="cpa-ml-20" label="请输入" variant="outlined" density="compact"></v-text-field>
+            </div>
           </v-tabs-window-item>
         </v-tabs-window>
 
