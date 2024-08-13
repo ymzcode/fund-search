@@ -10,17 +10,8 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
-    "@mdi/font": "^7.4.47",
-    "@pinia/nuxt": "^0.5.1",
+    "@ant-design-vue/nuxt": "^1.4.2",
     "nuxt": "^3.12.4",
-    "pinia": "^2.1.7",
-    "vue": "latest"
-  },
-  "devDependencies": {
-    "vite-plugin-vuetify": "^2.0.3",
-    "vuetify": "^3.6.13"
-  },
-  "overrides": {
     "vue": "latest"
   }
 }

@@ -1,14 +1,5 @@
 <template>
-  <NuxtLayout>
-    <NuxtPage />
-  </NuxtLayout>
+  <div>
+    <a-button type="primary">Primary Button</a-button>
+  </div>
 </template>
-
-
-<script setup lang="ts">
-import 'assets/common.css'
-</script>
-
-<style>
-
-</style>
