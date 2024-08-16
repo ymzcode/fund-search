@@ -1,13 +1,17 @@
 <script setup lang="ts">
 import {useAppStore} from "~/stores/app";
 
-const useApp = useAppStore()
+const useApp = ref({})
 
 const gotoHome = () => {
   useRouter().push({
     path: `/`
   })
 }
+
+onMounted(() => {
+  useApp.value = useAppStore()
+})
 </script>
 
 <template>

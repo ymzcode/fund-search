@@ -6,7 +6,7 @@ export default defineNuxtConfig({
     devtools: {enabled: true},
     modules: ['@pinia/nuxt', "@ant-design-vue/nuxt"],
     antd: {
-        extractStyle: false
+        extractStyle: true
     },
     experimental: {
         payloadExtraction: false

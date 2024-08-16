@@ -3,7 +3,7 @@ import {useAppStore} from "~/stores/app";
 
 const openKeys = ref<string[]>(['sub1']);
 const searchVal = ref('')
-const useApp = useAppStore()
+const useApp = ref({})
 
 const gotoSearch = (flag) => {
   let query = {
@@ -23,6 +23,10 @@ const gotoHome = () => {
     path: `/`
   })
 }
+
+onMounted(() => {
+  useApp.value = useAppStore()
+})
 
 </script>
 

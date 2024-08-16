@@ -1,5 +1,5 @@
 import {defineStore} from 'pinia'
-import {CrownOutlined, StarOutlined, HistoryOutlined, HomeOutlined, SettingOutlined} from "@ant-design/icons-vue";
+import {CrownOutlined, StarOutlined, HistoryOutlined, HomeOutlined} from "@ant-design/icons-vue";
 
 export const useAppStore = defineStore('app', {
     state: () => ({
@@ -65,7 +65,6 @@ export const useAppStore = defineStore('app', {
     getters: {},
     actions: {
         clickMenuItem(item: any) {
-            console.log(item)
             useRouter().push({
                 path: item.item.path
             })
