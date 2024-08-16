@@ -1,8 +1,28 @@
 <script setup lang="ts">
+import {useAppStore} from "~/stores/app";
 
-const selectedKeys1 = ref<string[]>(['2']);
-const selectedKeys2 = ref<string[]>(['1']);
 const openKeys = ref<string[]>(['sub1']);
+const searchVal = ref('')
+const useApp = useAppStore()
+
+const gotoSearch = (flag) => {
+  let query = {
+    keyword: searchVal.value
+  }
+  if (flag) {
+    query.isAdvancedSearch = 1
+  }
+  useRouter().push({
+    path: `/search`,
+    query
+  })
+}
+
+const gotoHome = () => {
+  useRouter().push({
+    path: `/`
+  })
+}
 
 </script>
 
@@ -11,21 +31,23 @@ const openKeys = ref<string[]>(['sub1']);
     <!--  顶部导航栏  -->
     <a-layout-header class="app-header">
       <div class="cpa-flex cpa-row cpa-align-center">
-        <div style="min-width: 120px">
+        <div style="min-width: 120px;cursor: pointer;" @click="gotoHome">
           <a-avatar src="https://www.antdv.com/assets/logo.1ef800a8.svg"/>
           <span>海研文库</span>
         </div>
 
         <!--   搜索栏   -->
-        <div class="cpa-ml-40 search-input">
+        <div class="cpa-ml-60 search-input">
           <a-input
+              v-model:value="searchVal"
               placeholder="请输入项目名/摘要/作者/批准号"
               :bordered="false"
               style="width: 25vw"
+              allowClear
           >
 
           </a-input>
-          <a-button style="background: #12D2AC" type="primary">
+          <a-button style="background: #12D2AC" type="primary" @click="gotoSearch(false)">
             <template #icon><SearchOutlined /></template>
             搜索
           </a-button>
@@ -33,7 +55,7 @@ const openKeys = ref<string[]>(['sub1']);
 
 
         <!--   高级搜索按钮   -->
-        <div class="cpa-flex cpa-row cpa-align-center cpa-ml-20">
+        <div class="cpa-flex cpa-row cpa-align-center cpa-ml-20" @click="gotoSearch(true)">
           <a-button type="text">
             <template #icon><FileSearchOutlined /></template>
             高级搜索
@@ -76,46 +98,13 @@ const openKeys = ref<string[]>(['sub1']);
     <div class="cpa-flex" style="min-height: 100vh">
       <a-layout-sider width="200" style="background: #fff">
         <a-menu
-            v-model:selectedKeys="selectedKeys2"
+            v-model:selectedKeys="useApp.activeMenuItem"
             v-model:openKeys="openKeys"
             mode="inline"
             :style="{ height: '100%', borderRight: 0 }"
+            @click="useApp.clickMenuItem"
+            :items="useApp.menuItem"
         >
-          <a-menu-item key="home">
-            <template #icon>
-              <HomeOutlined />
-            </template>
-            首页
-          </a-menu-item>
-
-          <a-menu-item key="history">
-            <template #icon>
-              <HistoryOutlined />
-            </template>
-            历史游览
-          </a-menu-item>
-
-          <a-menu-item key="collection">
-            <template #icon>
-              <StarOutlined />
-            </template>
-            我的收藏
-          </a-menu-item>
-
-
-          <a-sub-menu key="sub2">
-            <template #title>
-              <span>
-                <CrownOutlined />
-                会员中心
-              </span>
-            </template>
-            <a-menu-item key="5">option5</a-menu-item>
-            <a-menu-item key="6">option6</a-menu-item>
-            <a-menu-item key="7">option7</a-menu-item>
-            <a-menu-item key="8">option8</a-menu-item>
-          </a-sub-menu>
-
         </a-menu>
       </a-layout-sider>
 
@@ -136,25 +125,5 @@ const openKeys = ref<string[]>(['sub1']);
 </template>
 
 <style scoped>
-.app-header {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  background: #ffffff;
-  box-shadow: 0px 6px 10px 0px rgba(78, 89, 105, 0.06);
-  height: 60px;
-  width: max-content;
-  min-width: 100%;
-  line-height: 20px;
-  padding: 0 20px;
-  box-sizing: border-box;
-}
 
-.search-input {
-  display: flex;
-  flex-direction: row;
-  border: 1px solid #12D2AC;
-  border-radius: 10px;
-}
 </style>

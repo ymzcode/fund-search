@@ -12,7 +12,12 @@
   "dependencies": {
     "@ant-design-vue/nuxt": "^1.4.2",
     "@ant-design/icons-vue": "^7.0.1",
+    "@pinia/nuxt": "^0.5.3",
     "nuxt": "^3.12.4",
+    "pinia": "^2.2.1",
+    "vue": "latest"
+  },
+  "overrides": {
     "vue": "latest"
   }
 }
