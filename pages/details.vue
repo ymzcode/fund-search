@@ -54,8 +54,12 @@ const gotoThesis = () => {
 
 <template>
   <a-breadcrumb>
-    <a-breadcrumb-item><a href="/">首页</a></a-breadcrumb-item>
-    <a-breadcrumb-item><a href="/search">搜索结果</a></a-breadcrumb-item>
+    <a-breadcrumb-item>
+      <router-link to="/">首页</router-link>
+    </a-breadcrumb-item>
+    <a-breadcrumb-item>
+      <router-link to="/search">搜索结果</router-link>
+    </a-breadcrumb-item>
     <a-breadcrumb-item>查看项目</a-breadcrumb-item>
   </a-breadcrumb>
   <a-card class="cpa-mt-10">
@@ -84,13 +88,13 @@ const gotoThesis = () => {
       </div>
 
       <div class="cpa-flex cpa-mt-10 cpa-align-center cpa-row">
-        <FireFilled />
+        <FireFilled/>
         <span>资助机构：</span>
         <span class="cpa-weight-blod">Biochemistry</span>
       </div>
 
       <div class="cpa-flex cpa-mt-10 cpa-align-center cpa-row">
-        <AccountBookFilled />
+        <AccountBookFilled/>
         <span>资助金额：</span>
         <span class="cpa-weight-blod" style="color: orange">$1,000,000</span>
       </div>
@@ -107,7 +111,7 @@ const gotoThesis = () => {
 
               <div>
                 <a @click="gotoThesis">{{ record.name }}</a>
-                <div class="cpa-font-12 cpa-color-info" >
+                <div class="cpa-font-12 cpa-color-info">
                   摘要：{{ record.abstract || '--' }}
                 </div>
               </div>
