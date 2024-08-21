@@ -142,12 +142,79 @@ const data = [
     startTime: '2024-01-01',
     endTime: '2024-08-01'
   },
+  {
+    name: '标题1标题1标题1标题1标题1标题1标题1标题1标题1标题1标题1',
+    projectLeader: 'Jan Blue',
+    complete: true,
+    abstract: '摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要',
+    achievement: 3,
+    patent: 2,
+    institution: '资助机构1',
+    fundingAmount: '1,000,000',
+    startTime: '2024-01-01',
+    endTime: '2024-08-01'
+  },
+  {
+    name: '标题1标题1标题1标题1标题1标题1标题1标题1标题1标题1标题1',
+    projectLeader: 'Jan Blue',
+    complete: true,
+    abstract: '摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要',
+    achievement: 3,
+    patent: 2,
+    institution: '资助机构1',
+    fundingAmount: '1,000,000',
+    startTime: '2024-01-01',
+    endTime: '2024-08-01'
+  },
+  {
+    name: '标题1标题1标题1标题1标题1标题1标题1标题1标题1标题1标题1',
+    projectLeader: 'Jan Blue',
+    complete: true,
+    abstract: '摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要',
+    achievement: 3,
+    patent: 2,
+    institution: '资助机构1',
+    fundingAmount: '1,000,000',
+    startTime: '2024-01-01',
+    endTime: '2024-08-01'
+  },
+  {
+    name: '标题1标题1标题1标题1标题1标题1标题1标题1标题1标题1标题1',
+    projectLeader: 'Jan Blue',
+    complete: true,
+    abstract: '摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要',
+    achievement: 3,
+    patent: 2,
+    institution: '资助机构1',
+    fundingAmount: '1,000,000',
+    startTime: '2024-01-01',
+    endTime: '2024-08-01'
+  },
+  {
+    name: '标题1标题1标题1标题1标题1标题1标题1标题1标题1标题1标题1',
+    projectLeader: 'Jan Blue',
+    complete: true,
+    abstract: '摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要',
+    achievement: 3,
+    patent: 2,
+    institution: '资助机构1',
+    fundingAmount: '1,000,000',
+    startTime: '2024-01-01',
+    endTime: '2024-08-01'
+  },
 ];
 
 onMounted(() => {
   console.log(useRoute().params)
   searchQuery.searchVal = useRoute().query?.keyword || ''
   isAdvancedSearch.value = useRoute().query.isAdvancedSearch
+
+
+  document.addEventListener('scroll', scrollEvent)
+})
+
+onUnmounted(() => {
+  document.removeEventListener('scroll', scrollEvent)
 })
 
 const changeAdvancedSearch = () => {
@@ -174,6 +241,31 @@ const gotoDetails = () => {
     path: '/details'
   })
 }
+
+
+// 是否收起高级搜索
+const isRetract = ref(false)
+
+// 滚动监听
+const scrollEvent = (event) => {
+  if (isAdvancedSearch.value) {
+    // console.log(event)
+    isRetract.value = true
+
+    const scroll = document.documentElement.scrollTop || document.body.scrollTop
+
+    console.log(scroll)
+    if (scroll === 0) {
+      isRetract.value = false
+    }
+  }
+}
+
+const extendRetract = () => {
+  document.documentElement.scrollTop = 0
+  document.body.scrollTop = 0
+}
+
 
 </script>
 
@@ -259,7 +351,7 @@ const gotoDetails = () => {
     </div>
 
     <!--  高级搜索  -->
-    <div v-if="isAdvancedSearch" class="cpa-flex cpa-column cpa-px-20">
+    <div v-if="isAdvancedSearch && !isRetract" class="cpa-flex cpa-column cpa-px-20">
 
       <div class="cpa-flex cpa-row cpa-align-center">
         <a-dropdown>
@@ -437,6 +529,136 @@ const gotoDetails = () => {
       <a-divider/>
 
     </div>
+
+    <!--  高级搜索收起状态  -->
+    <a-affix v-else-if="isAdvancedSearch && isRetract" :offset-top="0">
+      <div class="cpa-flex cpa-column cpa-px-20 cpa-bg-white cpa-pt-20">
+        <div class="cpa-flex cpa-row cpa-align-center">
+          <div class="cpa-flex cpa-row cpa-align-center cpa-flex-1">
+            <a-dropdown>
+              <a class="ant-dropdown-link" @click.prevent>
+                包含（且）
+                <DownOutlined/>
+              </a>
+              <template #overlay>
+                <a-menu>
+                  <a-menu-item>
+                    <a href="javascript:;">包含（或）</a>
+                  </a-menu-item>
+                  <a-menu-item>
+                    <a href="javascript:;">排除</a>
+                  </a-menu-item>
+                </a-menu>
+              </template>
+            </a-dropdown>
+
+            <div class="cpa-flex cpa-column cpa-ml-10 cpa-flex-1">
+              <a-input v-model:value="searchQuery.searchVal" placeholder="请输入项目/论文/专利关键词"/>
+            </div>
+          </div>
+
+          <div class="cpa-flex cpa-row cpa-align-center cpa-ml-10 cpa-flex-1">
+            <a-dropdown>
+              <a class="ant-dropdown-link" @click.prevent>
+                包含（且）
+                <DownOutlined/>
+              </a>
+              <template #overlay>
+                <a-menu>
+                  <a-menu-item>
+                    <a href="javascript:;">包含（或）</a>
+                  </a-menu-item>
+                  <a-menu-item>
+                    <a href="javascript:;">排除</a>
+                  </a-menu-item>
+                </a-menu>
+              </template>
+            </a-dropdown>
+
+            <div class="cpa-flex cpa-column cpa-ml-10 cpa-flex-1">
+              <a-input v-model:value="searchQuery.searchVal" placeholder="请输入作者名称"/>
+            </div>
+          </div>
+
+          <div class="cpa-flex cpa-row cpa-align-center cpa-ml-10 cpa-flex-1">
+            <a-dropdown>
+              <a class="ant-dropdown-link" @click.prevent>
+                包含（且）
+                <DownOutlined/>
+              </a>
+              <template #overlay>
+                <a-menu>
+                  <a-menu-item>
+                    <a href="javascript:;">包含（或）</a>
+                  </a-menu-item>
+                  <a-menu-item>
+                    <a href="javascript:;">排除</a>
+                  </a-menu-item>
+                </a-menu>
+              </template>
+            </a-dropdown>
+
+            <div class="cpa-flex cpa-column cpa-ml-10 cpa-flex-1">
+              <a-input v-model:value="searchQuery.searchVal" placeholder="项目范围"/>
+            </div>
+          </div>
+
+          <div class="cpa-flex cpa-row cpa-align-center cpa-ml-10 cpa-flex-1 cpa-md-none">
+            <a-dropdown>
+              <a class="ant-dropdown-link" @click.prevent>
+                包含（且）
+                <DownOutlined/>
+              </a>
+              <template #overlay>
+                <a-menu>
+                  <a-menu-item>
+                    <a href="javascript:;">包含（或）</a>
+                  </a-menu-item>
+                  <a-menu-item>
+                    <a href="javascript:;">排除</a>
+                  </a-menu-item>
+                </a-menu>
+              </template>
+            </a-dropdown>
+
+            <div class="cpa-flex cpa-column cpa-ml-10 cpa-flex-1">
+              <a-input v-model:value="searchQuery.searchVal" placeholder="项目范围"/>
+            </div>
+          </div>
+
+
+          <div class="cpa-flex cpa-row cpa-align-center cpa-ml-10 cpa-flex-1 cpa-md-2-none">
+            <a-dropdown>
+              <a class="ant-dropdown-link" @click.prevent>
+                包含（且）
+                <DownOutlined/>
+              </a>
+              <template #overlay>
+                <a-menu>
+                  <a-menu-item>
+                    <a href="javascript:;">包含（或）</a>
+                  </a-menu-item>
+                  <a-menu-item>
+                    <a href="javascript:;">排除</a>
+                  </a-menu-item>
+                </a-menu>
+              </template>
+            </a-dropdown>
+
+            <div class="cpa-flex cpa-column cpa-ml-10 cpa-flex-1">
+              <a-input v-model:value="searchQuery.searchVal" placeholder="项目范围"/>
+            </div>
+          </div>
+
+        </div>
+
+        <a-divider>
+          <a-button @click="extendRetract" type="text">{{ isRetract ? '展开' : '收起' }}</a-button>
+        </a-divider>
+
+      </div>
+    </a-affix>
+
 
     <!--  搜索栏  -->
     <div class="cpa-flex cpa-row cpa-align-center cpa-justify-between cpa-mb-20 cpa-mt-20 cpa-px-20">

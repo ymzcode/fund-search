@@ -28,6 +28,9 @@ onMounted(() => {
   useApp.value = useAppStore()
 })
 
+useHead({
+  title: '海研文库'
+})
 </script>
 
 <template>

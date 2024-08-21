@@ -60,6 +60,8 @@ const data = [
     tags: ['cool', 'teacher'],
   },
 ];
+
+
 </script>
 
 <template>

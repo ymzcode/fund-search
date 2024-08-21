@@ -12,6 +12,10 @@ const gotoHome = () => {
 onMounted(() => {
   useApp.value = useAppStore()
 })
+
+useHead({
+  title: '海研文库'
+})
 </script>
 
 <template>
@@ -37,7 +41,7 @@ onMounted(() => {
             <slot />
           </div>
         </a-layout-content>
-        <a-layout-footer :style="{ textAlign: 'center' }">
+        <a-layout-footer :style="{ textAlign: 'center', background: 'transparent' }">
           Ant Design ©2018 Created by Ant UED
         </a-layout-footer>
       </a-layout>

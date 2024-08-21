@@ -540,3 +540,15 @@ body {
     border: 1px solid #12D2AC;
     border-radius: 10px;
 }
+
+@media screen and (max-width: 1200px) {
+    .cpa-md-none {
+        display: none !important;
+    }
+}
+
+@media screen and (max-width: 1440px) {
+    .cpa-md-2-none {
+        display: none !important;
+    }
+}
