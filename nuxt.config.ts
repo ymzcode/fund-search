@@ -19,5 +19,10 @@ export default defineNuxtConfig({
         output: {
             publicDir: path.join(__dirname, 'docs'),
         }
+    },
+    runtimeConfig: {
+        public: {
+            VITE_API_HOST: 'http://118.31.247.58:5664'
+        }
     }
 })

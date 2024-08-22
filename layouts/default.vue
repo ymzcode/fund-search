@@ -1,9 +1,14 @@
 <script setup lang="ts">
 import {useAppStore} from "~/stores/app";
+import {useUserStore} from "~/stores/user";
+import LoginPopup from "~/components/LoginPopup.vue";
+import config from "~/utils/config";
 
 const openKeys = ref<string[]>(['sub1']);
 const searchVal = ref('')
 const useApp = ref({})
+const userStore = useUserStore();
+const loginRef = ref(null)
 
 const gotoSearch = (flag) => {
   let query = {
@@ -31,6 +36,11 @@ onMounted(() => {
 useHead({
   title: '海研文库'
 })
+
+
+const onClickLogin = () => {
+  loginRef.value?.open()
+}
 </script>
 
 <template>
@@ -39,7 +49,7 @@ useHead({
     <a-layout-header class="app-header">
       <div class="cpa-flex cpa-row cpa-align-center">
         <div style="min-width: 120px;cursor: pointer;" @click="gotoHome">
-          <a-avatar src="https://www.antdv.com/assets/logo.1ef800a8.svg"/>
+          <a-avatar :src="config.logoImg"/>
           <span>海研文库</span>
         </div>
 
@@ -78,26 +88,21 @@ useHead({
         </a-button>
 
 
-        <a-dropdown>
+        <a-dropdown v-if="userStore.isLogin">
           <a-avatar style="cursor: pointer;" src="https://zebj-app.oss-cn-beijing.aliyuncs.com/2024/07/29/a7dea35a63f748caaa56d016618681e4.jpg"/>
-
           <template #overlay>
             <a-menu>
               <a-menu-item key="0">
-                <a target="_blank" rel="noopener noreferrer" href="http://www.alipay.com/">
-                  1st menu item
-                </a>
+                个人信息
               </a-menu-item>
-              <a-menu-item key="1">
-                <a target="_blank" rel="noopener noreferrer" href="http://www.taobao.com/">
-                  2nd menu item
-                </a>
+              <a-menu-item key="1" @click="userStore.logout">
+                退出登录
               </a-menu-item>
-              <a-menu-divider />
-              <a-menu-item key="3" disabled>3rd menu item（disabled）</a-menu-item>
             </a-menu>
           </template>
         </a-dropdown>
+
+        <a-button v-else type="text" @click="onClickLogin">登录/注册</a-button>
       </div>
     </a-layout-header>
 
@@ -128,6 +133,9 @@ useHead({
         </a-layout-content>
       </a-layout>
     </div>
+
+
+    <login-popup ref="loginRef"/>
   </a-config-provider>
 </template>
 

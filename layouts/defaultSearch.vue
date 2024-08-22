@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import {useAppStore} from "~/stores/app";
+import config from "~/utils/config";
 
 const useApp = ref({})
 
@@ -27,7 +28,7 @@ useHead({
       >
 
         <div class="cpa-flex cpa-align-center cpa-pl-20" style="min-width: 120px;height: 60px;cursor: pointer;" @click="gotoHome">
-          <a-avatar src="https://www.antdv.com/assets/logo.1ef800a8.svg"/>
+          <a-avatar :src="config.logoImg"/>
           <span class="cpa-font-16">海研文库</span>
         </div>
 
