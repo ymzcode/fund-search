@@ -25,38 +25,23 @@ export const useAppStore = defineStore('app', {
                 title: '我的收藏',
             },
             {
-                key: 'CrownOutlined',
+                key: 'member',
                 icon: () => h(CrownOutlined),
                 label: '会员中心',
                 title: '会员中心',
                 children: [
                     {
-                        key: '3',
-                        label: 'Option 3',
-                        title: 'Option 3',
+                        key: 'setting',
+                        label: '用户设置',
+                        title: '用户设置',
+                        path: '/setting'
                     },
                     {
-                        key: '4',
-                        label: 'Option 4',
-                        title: 'Option 4',
-                    },
-                    {
-                        key: 'sub1-2',
-                        label: 'Submenu',
-                        title: 'Submenu',
-                        children: [
-                            {
-                                key: '5',
-                                label: 'Option 5',
-                                title: 'Option 5',
-                            },
-                            {
-                                key: '6',
-                                label: 'Option 6',
-                                title: 'Option 6',
-                            },
-                        ],
-                    },
+                        key: 'order',
+                        label: '我的订单',
+                        title: '我的订单',
+                        path: '/order'
+                    }
                 ],
             }
         ],
@@ -65,6 +50,7 @@ export const useAppStore = defineStore('app', {
     getters: {},
     actions: {
         clickMenuItem(item: any) {
+            // console.log(item)
             useRouter().push({
                 path: item.item.path
             })

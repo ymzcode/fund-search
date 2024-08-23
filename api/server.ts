@@ -6,6 +6,6 @@ export default new class server extends Http {
      * 登录
      */
     public login(data: any) {
-        return this.post('/auth/login', data)
+        return this.postX('/auth/login', data)
     }
 }

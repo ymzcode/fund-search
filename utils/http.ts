@@ -70,6 +70,13 @@ export default class Http {
         return fetch(url, {method: 'post', body}, headers)
     }
 
+    postX(url: string, query?: any, headers?: any) {
+        return fetch(url, {method: 'post', query}, {
+            'content-type': 'application/x-www-form-urlencoded',
+            ...headers
+        })
+    }
+
     put(url: string, body?: any, headers?: any) {
         return fetch(url, {method: 'put', body}, headers)
     }
