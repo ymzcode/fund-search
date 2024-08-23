@@ -9,6 +9,7 @@ export const useAppStore = defineStore('app', {
                 key: 'home',
                 label: '首页',
                 path: '/',
+                icon: '',
                 noLogin: true
             },
             {
@@ -60,6 +61,10 @@ export const useAppStore = defineStore('app', {
                 }
             }
 
+        },
+
+        setMenu(menu) {
+          this.menuItem = menu
         },
         openLoginDialog() {
             this.openDialog = true

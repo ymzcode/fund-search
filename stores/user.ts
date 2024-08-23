@@ -16,6 +16,9 @@ export const useUserStore = defineStore('user', {
         },
         logout() {
             this.token = ''
+            useRouter().push({
+                path: '/'
+            })
         },
         setToken(token: string) {
             this.token = token

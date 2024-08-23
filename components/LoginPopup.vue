@@ -1,15 +1,17 @@
 <script setup lang="ts">
 import config from "~/utils/config";
+import {message} from 'ant-design-vue';
 
 
 const props = defineProps({})
 
-const { server } = useApi()
+const {server} = useApi()
 const appStore = useAppStore()
 
 const loginType = ref(1)
 
 const privacy = ref(false)
+const loginSuccess = ref(false)
 const mode = ref(1)
 
 const form1 = reactive({
@@ -39,14 +41,22 @@ const open = () => {
 }
 
 const onFinish = async (values: any) => {
+  if (!privacy.value) {
+    message.warning('请勾选阅读并接受用户协议和隐私政策')
+    return
+  }
   console.log('Success:', values);
   const userInfo = await server.login({
     username: form1.account,
     password: form1.password
   })
   console.log(userInfo)
-  useUserStore().setToken(userInfo.val)
-  appStore.closeLoginDialog()
+  loginSuccess.value = true
+  setTimeout(() => {
+    useUserStore().setToken(userInfo.val)
+    appStore.closeLoginDialog()
+    reSet()
+  }, 500)
 };
 
 const onFinishFailed = (errorInfo: any) => {
@@ -57,6 +67,11 @@ const onFinish3 = (val) => {
   form3.step = 2
 }
 
+const reSet = () => {
+  loginSuccess.value = false
+  form1.account = ''
+  form1.password = ''
+}
 
 defineExpose({
   open
@@ -90,8 +105,15 @@ defineExpose({
 
       <!--      <a-divider type="vertical" />-->
 
+      <div v-if="loginSuccess" class="cpa-flex cpa-row cpa-ml-20 cpa-justify-center cpa-align-center cpa-w-full">
+        <div>
+          <CheckCircleFilled style="color: #00C234;font-size: 20px" />
+        </div>
+        <div class="cpa-ml-10 cpa-font-16">登录成功</div>
+      </div>
+
       <!--    右侧登录  -->
-      <div class="cpa-flex cpa-column cpa-ml-20 cpa-flex-1">
+      <div v-else class="cpa-flex cpa-column cpa-ml-20 cpa-flex-1">
         <div class="cpa-flex cpa-row cpa-align-center">
           <div :class="{ 'cpa-weight-blod': loginType === 1 }" class="cpa-font-16" style="cursor: pointer"
                @click="loginType = 1">账号登录
@@ -140,7 +162,7 @@ defineExpose({
 
         </div>
 
-        <div v-if="loginType === 2" class="cpa-flex cpa-column cpa-w-full cpa-mt-10">
+        <div v-else-if="loginType === 2" class="cpa-flex cpa-column cpa-w-full cpa-mt-10">
           <div class="cpa-font-12 cpa-color-info">验证即登录，未注册将自动创建账号</div>
           <a-form
               :model="form2"
@@ -183,6 +205,7 @@ defineExpose({
 
         </div>
 
+
         <div class="cpa-flex">
           <a-checkbox v-model:checked="privacy">
             阅读并接受
@@ -194,7 +217,6 @@ defineExpose({
 
 
       </div>
-
 
     </div>
 
@@ -224,7 +246,7 @@ defineExpose({
             < 返回
           </div>
 
-          <a-divider type="vertical" />
+          <a-divider type="vertical"/>
 
           <div v-if="form3.step === 1" class="cpa-font-20 cpa-weight-blod">
             欢迎注册
@@ -262,7 +284,7 @@ defineExpose({
               </a-form-item>
 
               <a-form-item>
-                <a-button type="primary" html-type="submit" style="height: 40px" block >立即注册</a-button>
+                <a-button type="primary" html-type="submit" style="height: 40px" block>立即注册</a-button>
               </a-form-item>
             </template>
 
@@ -272,7 +294,8 @@ defineExpose({
                   name="password"
                   :rules="[{ required: true, message: '请输入密码' }]"
               >
-                <a-input size="large" v-model:value="form3.password" placeholder="含大小写字母和数字密码，不低于8个字符"/>
+                <a-input size="large" v-model:value="form3.password"
+                         placeholder="含大小写字母和数字密码，不低于8个字符"/>
               </a-form-item>
 
               <a-form-item

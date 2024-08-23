@@ -24,6 +24,7 @@ const searchQuery = reactive({
 
 const isAdvancedSearch = ref(false)
 const projectFieldNameInput = ref(false)
+const userStore = useUserStore()
 
 const projectFieldList = ref([
   {
@@ -205,7 +206,7 @@ const data = [
 ];
 
 onMounted(() => {
-  console.log(useRoute().params)
+  // console.log(useRoute().params)
   searchQuery.searchVal = useRoute().query?.keyword || ''
   isAdvancedSearch.value = useRoute().query.isAdvancedSearch
 
@@ -266,6 +267,15 @@ const extendRetract = () => {
   document.body.scrollTop = 0
 }
 
+const gotoUser = () => {
+  useRouter().push({
+    path: '/setting'
+  })
+}
+
+const onClickLogin = () => {
+  useAppStore().openLoginDialog()
+}
 
 </script>
 
@@ -318,7 +328,7 @@ const extendRetract = () => {
 
 
       <div class="cpa-flex cpa-align-center">
-        <a-button type="text" class="cpa-mr-20">
+        <a-button type="text" class="cpa-mr-20" @click="gotoUser">
           <template #icon>
             <CrownOutlined/>
           </template>
@@ -326,27 +336,22 @@ const extendRetract = () => {
         </a-button>
 
 
-        <a-dropdown>
-          <a-avatar style="cursor: pointer;"
-                    src="https://zebj-app.oss-cn-beijing.aliyuncs.com/2024/07/29/a7dea35a63f748caaa56d016618681e4.jpg"/>
-
+        <a-dropdown v-if="userStore.isLogin">
+          <a-avatar style="cursor: pointer;" src="https://zebj-app.oss-cn-beijing.aliyuncs.com/2024/07/29/a7dea35a63f748caaa56d016618681e4.jpg"/>
           <template #overlay>
             <a-menu>
-              <a-menu-item key="0">
-                <a target="_blank" rel="noopener noreferrer" href="http://www.alipay.com/">
-                  1st menu item
-                </a>
+              <a-menu-item key="0" @click="gotoUser">
+                个人信息
               </a-menu-item>
-              <a-menu-item key="1">
-                <a target="_blank" rel="noopener noreferrer" href="http://www.taobao.com/">
-                  2nd menu item
-                </a>
+              <a-menu-item key="1" @click="userStore.logout">
+                退出登录
               </a-menu-item>
-              <a-menu-divider/>
-              <a-menu-item key="3" disabled>3rd menu item（disabled）</a-menu-item>
             </a-menu>
           </template>
         </a-dropdown>
+
+
+        <a-button v-else type="text" @click="onClickLogin">登录/注册</a-button>
       </div>
     </div>
 

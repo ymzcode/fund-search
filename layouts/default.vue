@@ -90,7 +90,7 @@ const onClickLogin = () => {
 
 
       <div class="cpa-flex cpa-align-center">
-        <a-button type="text" class="cpa-mr-20">
+        <a-button type="text" class="cpa-mr-20" @click="gotoUser">
           <template #icon><CrownOutlined /></template>
           会员中心
         </a-button>
