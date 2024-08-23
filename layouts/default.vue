@@ -4,9 +4,10 @@ import {useUserStore} from "~/stores/user";
 import LoginPopup from "~/components/LoginPopup.vue";
 import config from "~/utils/config";
 
+
 const openKeys = ref<string[]>(['sub1']);
 const searchVal = ref('')
-const useApp = ref({})
+const useApp = useAppStore()
 const userStore = useUserStore();
 const loginRef = ref(null)
 
@@ -29,13 +30,20 @@ const gotoHome = () => {
   })
 }
 
+const gotoUser = () => {
+  useRouter().push({
+    path: `/setting`
+  })
+}
+
 onMounted(() => {
-  useApp.value = useAppStore()
+
 })
 
 useHead({
   title: '海研文库'
 })
+
 
 
 const onClickLogin = () => {
@@ -92,7 +100,7 @@ const onClickLogin = () => {
           <a-avatar style="cursor: pointer;" src="https://zebj-app.oss-cn-beijing.aliyuncs.com/2024/07/29/a7dea35a63f748caaa56d016618681e4.jpg"/>
           <template #overlay>
             <a-menu>
-              <a-menu-item key="0">
+              <a-menu-item key="0" @click="gotoUser">
                 个人信息
               </a-menu-item>
               <a-menu-item key="1" @click="userStore.logout">

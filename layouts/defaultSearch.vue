@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import {useAppStore} from "~/stores/app";
 import config from "~/utils/config";
+import LoginPopup from "~/components/LoginPopup.vue";
 
-const useApp = ref({})
+const useApp = useAppStore()
 
 const gotoHome = () => {
   useRouter().push({
@@ -11,7 +12,6 @@ const gotoHome = () => {
 }
 
 onMounted(() => {
-  useApp.value = useAppStore()
 })
 
 useHead({
@@ -47,6 +47,9 @@ useHead({
         </a-layout-footer>
       </a-layout>
     </a-layout>
+
+    <login-popup ref="loginRef"/>
+
   </a-config-provider>
 </template>
 

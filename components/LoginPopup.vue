@@ -2,15 +2,11 @@
 import config from "~/utils/config";
 
 
-const props = defineProps({
-  open: {
-    type: Boolean,
-    default: true
-  },
-})
-const { server } = useApi()
+const props = defineProps({})
 
-const openDialog = ref(false)
+const { server } = useApi()
+const appStore = useAppStore()
+
 const loginType = ref(1)
 
 const privacy = ref(false)
@@ -35,21 +31,22 @@ const form3 = reactive({
   step: 1
 })
 
-watch(() => props.open, (val) => {
-  console.log(val)
+onMounted(() => {
 })
 
 const open = () => {
-  openDialog.value = true
+  appStore.openLoginDialog()
 }
 
 const onFinish = async (values: any) => {
   console.log('Success:', values);
-  const hots = await server.login({
+  const userInfo = await server.login({
     username: form1.account,
     password: form1.password
   })
-  console.log(hots)
+  console.log(userInfo)
+  useUserStore().setToken(userInfo.val)
+  appStore.closeLoginDialog()
 };
 
 const onFinishFailed = (errorInfo: any) => {
@@ -67,7 +64,7 @@ defineExpose({
 </script>
 
 <template>
-  <a-modal v-model:open="openDialog" width="60vw">
+  <a-modal v-model:open="appStore.openDialog" width="700px">
     <template #title>
       <div style="cursor: pointer;">
         <a-avatar :src="config.logoImg"/>

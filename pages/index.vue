@@ -61,6 +61,9 @@ const data = [
   },
 ];
 
+const userStore = useUserStore()
+const appStore = useAppStore()
+
 </script>
 
 <template>
@@ -69,7 +72,7 @@ const data = [
       <a-col :span="18">
         <a-card>
           <div class="cpa-flex cpa-row  cpa-align-center">
-            <div class="cpa-flex cpa-column cpa-align-center">
+            <div v-if="userStore.isLogin" class="cpa-flex cpa-column cpa-align-center">
               <a-avatar :size="64" style="cursor: pointer;"
                         src="https://zebj-app.oss-cn-beijing.aliyuncs.com/2024/07/29/a7dea35a63f748caaa56d016618681e4.jpg"/>
 
@@ -77,6 +80,12 @@ const data = [
 
               <a-button class="cpa-mt-20" type="primary" style="background-color: #12D2AC;width: 250px">限时 99
                 元开通VIP
+              </a-button>
+            </div>
+
+            <div v-else class="cpa-flex cpa-column cpa-align-center">
+              <div>暂未登录</div>
+              <a-button class="cpa-mt-20" type="primary" style="background-color: #12D2AC;width: 250px" @click="appStore.openLoginDialog">立即登录
               </a-button>
             </div>
 

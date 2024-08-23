@@ -16,6 +16,9 @@ export const useUserStore = defineStore('user', {
         },
         logout() {
             this.token = ''
+        },
+        setToken(token: string) {
+            this.token = token
         }
     },
 })
