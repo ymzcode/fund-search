@@ -12,7 +12,7 @@ export default defineNuxtConfig({
         payloadExtraction: false
     },
     app: {
-        baseURL: '/fund-search/',
+        baseURL: '/',
         buildAssetsDir: 'nuxt_assets',
     },
     nitro: {

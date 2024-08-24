@@ -138,8 +138,42 @@ const appStore = useAppStore()
       </a-col>
     </a-row>
   </div>
+
+  <div class="xmcg-wrapper">
+    <div style="cursor: pointer" class="cpa-flex-1 cpa-flex cpa-align-center">项目成功统计</div>
+    <a-divider />
+    <div style="cursor: pointer" class="cpa-flex-1 cpa-flex">分析报告</div>
+
+    <div style="cursor: pointer" class="ai-btn">AI</div>
+  </div>
 </template>
 
 <style scoped>
+.xmcg-wrapper {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  right: 0;
+  top: 20vh;
+  background: #ffffff;
+  box-shadow: 0 2px 6px 0 rgba(190,203,214,0.72);
+  width: 52px;
+  height: 199px;
+  padding: 10px 10px;
+}
 
+.ai-btn {
+  width: 51px;
+  height: 51px;
+  background-color: rgba(64,128,255,1);
+  border-radius: 50%;
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  bottom: -30px;
+  left: 0;
+}
 </style>

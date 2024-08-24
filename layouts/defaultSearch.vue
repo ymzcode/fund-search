@@ -29,7 +29,7 @@ useHead({
 
         <div class="cpa-flex cpa-align-center cpa-pl-20" style="min-width: 120px;height: 60px;cursor: pointer;" @click="gotoHome">
           <a-avatar :src="config.logoImg"/>
-          <span class="cpa-font-16">海研文库</span>
+          <span class="cpa-logo-text">海研文库</span>
         </div>
 
         <a-menu v-model:selectedKeys="useApp.activeMenuItem" :items="useApp.menuItem" mode="inline" @click="useApp.clickMenuItem">

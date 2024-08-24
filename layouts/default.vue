@@ -56,9 +56,9 @@ const onClickLogin = () => {
     <!--  顶部导航栏  -->
     <a-layout-header class="app-header">
       <div class="cpa-flex cpa-row cpa-align-center">
-        <div style="min-width: 120px;cursor: pointer;" @click="gotoHome">
+        <div class="cpa-flex cpa-align-center" style="min-width: 120px;cursor: pointer;" @click="gotoHome">
           <a-avatar :src="config.logoImg"/>
-          <span>海研文库</span>
+          <span class="cpa-logo-text">海研文库</span>
         </div>
 
         <!--   搜索栏   -->
