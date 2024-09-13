@@ -30,7 +30,7 @@ const fetch = async (url: string, options?: any, headers?: any) => {
         const customHeaders = {token: useCookie('token').value, ...headers}
 
         const {data, error} = await useFetch(reqUrl, {...options, key, headers: customHeaders})
-        // console.log(data, reqUrl, error.value)
+        // console.log(data.value, reqUrl)
         const result = data.value as ResOptions<any>
         // console.log('useFetchResData: ', result)
         if (error.value || !result || (result && result.code !== 200)) {

@@ -1,5 +1,6 @@
 import {defineStore} from 'pinia'
 import {CrownOutlined, StarOutlined, HistoryOutlined, HomeOutlined} from "@ant-design/icons-vue";
+const {server} = useApi()
 
 export const useUserStore = defineStore('user', {
     state: () => ({
@@ -13,6 +14,15 @@ export const useUserStore = defineStore('user', {
     actions: {
         login() {
 
+        },
+        wxLogin(code) {
+            server.loginByWxWeb({
+                code: code
+            }).then(res => {
+                console.log(res)
+            }).catch(err => {
+                console.log(err)
+            })
         },
         logout() {
             this.token = ''

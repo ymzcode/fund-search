@@ -63,6 +63,16 @@ const data = [
 
 const userStore = useUserStore()
 const appStore = useAppStore()
+const route = useRoute()
+
+onMounted(() => {
+  // console.log(route.query.code)
+  if (route.query.code) {
+    setTimeout(() => {
+      userStore.wxLogin(route.query.code)
+    }, 500)
+  }
+})
 
 </script>
 
