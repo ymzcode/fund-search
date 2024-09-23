@@ -1,14 +1,34 @@
 <script setup lang="ts">
 
+import {message} from "ant-design-vue";
+import server from "~/api/server";
+
 const tab = ref(1)
 const changePhone = ref(false)
+const wxLoginVal = ref(null)
+const route = useRoute()
 
 onMounted(() => {
   const appStore = useAppStore()
-
   appStore.activeMenuItem = ['setting']
+
+  startBind()
 })
 
+const startBind =  () => {
+  // console.log(route)
+  if (route.query.code) {
+    nextTick(() => {
+      server.bindByWxWeb({
+        code: route.query.code
+      }).then(res => {
+        console.log(res)
+        message.success('绑定成功')
+      })
+    })
+
+  }
+}
 
 const changeTab = (val: any) => {
   tab.value = val
@@ -21,6 +41,7 @@ const formState = reactive({
   area: '',
   region: ''
 })
+const bingweixin = ref(false)
 
 const onFinish = (values: any) => {
   console.log('Success:', values);
@@ -34,6 +55,17 @@ const onFinishFailed = (errorInfo: any) => {
 const reSet = () => {
 
 }
+
+const openWeiXin = () => {
+  // bingweixin.value = true
+
+  window.open(`
+  https://open.weixin.qq.com/connect/qrconnect?appid=${config.appid}&redirect_uri=${encodeURI('http://www.haiyanai.com/')}&scope=snsapi_login&state=123
+  `)
+
+}
+
+
 </script>
 
 <template>
@@ -203,6 +235,31 @@ const reSet = () => {
         </div>
       </div>
 
+
+      <div class="cpa-flex cpa-row cpa-mt-10">
+        <div class="cpa-color-info" style="padding-top: 5px;width: 100px">绑定微信</div>
+        <div class="cpa-flex cpa-column cpa-ml-20 cpa-flex-1">
+          <div class="cpa-flex cpa-row cpa-align-center cpa-justify-between">
+            <div>绑定微信方便后续快速登录</div>
+            <a-button style="color:#165DFF;" type="text" @click="openWeiXin">绑定</a-button>
+          </div>
+
+          <a-divider />
+
+        </div>
+      </div>
+
+
+      <a-modal v-model:open="bingweixin" title="绑定微信">
+        <div class="cpa-flex cpa-justify-center cpa-align-center">
+          <div id="weixin_bind"></div>
+        </div>
+        、
+        <template #footer>
+          <a-button key="back" @click="bingweixin = false">取消</a-button>
+        </template>
+      </a-modal>
+
     </div>
   </a-card>
 </template>
@@ -224,5 +281,12 @@ const reSet = () => {
   justify-content: center;
   align-items: center;
   cursor: pointer;
+}
+
+#weixin_bind {
+  width: 200px;
+  height: 200px;
+  margin-left: -100px;
+  margin-top: 50px;
 }
 </style>

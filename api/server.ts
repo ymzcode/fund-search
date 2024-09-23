@@ -6,7 +6,7 @@ export default new class server extends Http {
      * 登录
      */
     public login(data: any) {
-        return this.postX('/auth/login', data)
+        return this.post('/auth/loginByPwd', data)
     }
 
     /**
@@ -22,6 +22,11 @@ export default new class server extends Http {
     public loginByWxWeb(data: any) {
         return this.postX('/auth/loginByWxWeb', data)
     }
+
+    public bindByWxWeb(data: any) {
+        return this.postX('/userWx/bindByWxWeb', data)
+    }
+
 
 
 }

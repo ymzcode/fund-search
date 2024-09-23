@@ -10,6 +10,7 @@
 <script setup lang="ts">
 import 'assets/common.css'
 import {CrownOutlined, StarOutlined, HistoryOutlined, HomeOutlined} from "@ant-design/icons-vue";
+import {useUserStore} from "~/stores/user";
 
 onMounted(() => {
   const menu = [
@@ -49,5 +50,7 @@ onMounted(() => {
     }
   ]
   useAppStore().setMenu(menu)
+
+  useUserStore().init()
 })
 </script>

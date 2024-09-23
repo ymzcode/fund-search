@@ -106,17 +106,17 @@ const onFinish = async (values: any) => {
   }
   console.log('Success:', values);
   const userInfo = await server.login({
-    username: form1.account,
+    principal: form1.account,
     password: form1.password
   })
   console.log(userInfo)
   loginSuccess.value = true
   setTimeout(() => {
-    useUserStore().setToken(userInfo.val)
+    useUserStore().setToken(userInfo['x-haiyanai-token'])
     appStore.closeLoginDialog()
     reSet()
   }, 500)
-};
+}
 
 const onFinishFailed = (errorInfo: any) => {
   console.log('Failed:', errorInfo);
@@ -137,7 +137,7 @@ watch(() => appStore.openDialog, (val) => {
     import('assets/wxLogin').then(res => {
       wxLoginVal.value = new WxLogin({
         id: "login_container",
-        appid: "wxd1abe0f93c8dc542",
+        appid: config.appid,
         scope: "snsapi_login",
         redirect_uri: encodeURI('http://www.haiyanai.com/'),
         stylelite: 1,

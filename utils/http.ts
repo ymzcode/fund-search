@@ -1,5 +1,5 @@
 import {hash} from 'ohash'
-import { message } from 'ant-design-vue';
+import {message} from 'ant-design-vue';
 
 // 后端返回的数据类型
 export interface ResOptions<T> {
@@ -27,10 +27,25 @@ const fetch = async (url: string, options?: any, headers?: any) => {
         const key = hash(JSON.stringify(options) + url)
 
         // 可以设置默认headers例如，token的获取最好用useState返回一个useCookie
-        const customHeaders = {token: useCookie('token').value, ...headers}
+        const customHeaders = {'x-haiyanai-token': `${useCookie('token').value}`, ...headers}
 
-        const {data, error} = await useFetch(reqUrl, {...options, key, headers: customHeaders})
+        const _data = await useFetch(reqUrl, {
+            ...options, key, headers: customHeaders,
+            onResponse({request, response, options}) {
+              console.log('onResponse', request, response, options)
+                if (response.status === 200 && response._data.code !== 200) {
+                    message.error(response?._data?.msg || `请求遇到异常,${JSON.stringify(response._data)}`);
+                }
+            },
+            onResponseError({request, response, options}) {
+                // console.log('onResponseError', request, response, options)
+                if (response.status !== 200) {
+                    message.error(response?._data?.msg || `请求遇到异常,${JSON.stringify(response._data)}`);
+                }
+            }
+        })
         // console.log(data.value, reqUrl)
+        const {data, error} = _data
         const result = data.value as ResOptions<any>
         // console.log('useFetchResData: ', result)
         if (error.value || !result || (result && result.code !== 200)) {
@@ -42,7 +57,7 @@ const fetch = async (url: string, options?: any, headers?: any) => {
 
             // 在客户端的时候抛出错误结果方便捕捉
             if (process.client) {
-                message.error(result?.msg || `请求遇到异常,${JSON.stringify(result)}`);
+                // message.error(result?.msg || `请求遇到异常,${JSON.stringify(result)}`);
                 return Promise.reject(result || error.value)
             }
             // 在服务端就直接渲染错误页面，需要设置一个error.vue接收错误信息

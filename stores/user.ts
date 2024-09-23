@@ -12,6 +12,10 @@ export const useUserStore = defineStore('user', {
         isLogin: state => !!state.token
     },
     actions: {
+        init() {
+            useCookie('token').value = localStorage.getItem('token') || ''
+            this.token = useCookie('token').value
+        },
         login() {
 
         },
@@ -19,9 +23,8 @@ export const useUserStore = defineStore('user', {
             server.loginByWxWeb({
                 code: code
             }).then(res => {
-                console.log(res)
-            }).catch(err => {
-                console.log(err)
+                // console.log(res)
+                this.setToken(res['x-haiyanai-token'])
             })
         },
         logout() {
@@ -29,9 +32,12 @@ export const useUserStore = defineStore('user', {
             useRouter().push({
                 path: '/'
             })
+            useCookie('token').value = ''
         },
         setToken(token: string) {
             this.token = token
+            useCookie('token').value = token
+            localStorage.setItem('token', token)
         }
     },
 })
