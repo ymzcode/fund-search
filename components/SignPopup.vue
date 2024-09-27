@@ -3,6 +3,7 @@ import {message} from 'ant-design-vue';
 import {asyncValidator, loadExternalScript} from "~/utils";
 import server from "~/api/server";
 import {useUserStore} from "~/stores/user";
+import {useAppStore} from "~/stores/app";
 
 
 
@@ -121,6 +122,15 @@ const onFinish3 = (val) => {
     console.log(res)
     message.success('注册成功')
     useUserStore().setToken(res['x-haiyanai-token'])
+    useAppStore().closeLoginDialog()
+
+    form3.username = ''
+    form3.step = ''
+    form3.phone = ''
+    form3.code = ''
+    form3.password = ''
+    form3.rePassword = ''
+    form3.step = 1
   })
 
 }
