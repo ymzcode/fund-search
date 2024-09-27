@@ -176,7 +176,7 @@ const onFinish3 = (val) => {
               name="password"
               :rules="[{ required: true, message: '请输入密码' }]"
           >
-            <a-input size="large" v-model:value="form3.password"
+            <a-input-password size="large" v-model:value="form3.password"
                      placeholder="请输入密码"/>
           </a-form-item>
 
@@ -184,7 +184,7 @@ const onFinish3 = (val) => {
               name="rePassword"
               :rules="[{ required: true, message: '请输入验证码' }]"
           >
-            <a-input size="large" v-model:value="form3.rePassword" placeholder="确认密码"/>
+            <a-input-password size="large" v-model:value="form3.rePassword" placeholder="确认密码"/>
           </a-form-item>
 
           <a-form-item>

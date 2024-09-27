@@ -1,6 +1,6 @@
 import {defineStore} from 'pinia'
 import {CrownOutlined, StarOutlined, HistoryOutlined, HomeOutlined} from "@ant-design/icons-vue";
-const {server} = useApi()
+import server from "~/api/server";
 
 export const useUserStore = defineStore('user', {
     state: () => ({
@@ -28,11 +28,14 @@ export const useUserStore = defineStore('user', {
             })
         },
         logout() {
+            server.logout()
+
             this.token = ''
             useRouter().push({
                 path: '/'
             })
             useCookie('token').value = ''
+            localStorage.removeItem('token')
         },
         setToken(token: string) {
             this.token = token

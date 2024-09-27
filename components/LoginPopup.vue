@@ -104,18 +104,33 @@ const onFinish = async (values: any) => {
     message.warning('请勾选阅读并接受用户协议和隐私政策')
     return
   }
-  console.log('Success:', values);
-  const userInfo = await server.login({
-    principal: form1.account,
-    password: form1.password
-  })
-  console.log(userInfo)
-  loginSuccess.value = true
-  setTimeout(() => {
-    useUserStore().setToken(userInfo['x-haiyanai-token'])
-    appStore.closeLoginDialog()
-    reSet()
-  }, 500)
+
+  let userInfo = {}
+
+  if (loginType.value === 1) {
+    userInfo = await server.login({
+      principal: form1.account,
+      password: form1.password
+    })
+  } else if (loginType.value === 2) {
+    userInfo = await server.loginBySms({
+      phone: form2.phone,
+      code: form2.code
+    })
+  }
+  // console.log('Success:', values);
+
+  // console.log(userInfo)
+
+  if (userInfo['x-haiyanai-token']) {
+    loginSuccess.value = true
+    setTimeout(() => {
+      useUserStore().setToken(userInfo['x-haiyanai-token'])
+      appStore.closeLoginDialog()
+      reSet()
+    }, 500)
+  }
+
 }
 
 const onFinishFailed = (errorInfo: any) => {
@@ -130,26 +145,29 @@ const reSet = () => {
   loginSuccess.value = false
   form1.account = ''
   form1.password = ''
+
+  form2.phone = ''
+  form2.code = ''
 }
 
 
-watch(() => appStore.openDialog, (val) => {
-  if (val && !wxLoginVal.value) {
-    import('assets/wxLogin').then(res => {
-      wxLoginVal.value = new WxLogin({
-        id: "login_container",
-        appid: config.appid,
-        scope: "snsapi_login",
-        redirect_uri: encodeURI('http://www.haiyanai.com/'),
-        stylelite: 1,
-        state: '123',
-        fast_login: 1
-      });
-
-      // console.log(obj)
-    })
-  }
-})
+// watch(() => appStore.openDialog, (val) => {
+//   if (val && !wxLoginVal.value) {
+//     import('assets/wxLogin').then(res => {
+//       wxLoginVal.value = new WxLogin({
+//         id: "login_container",
+//         appid: config.appid,
+//         scope: "snsapi_login",
+//         redirect_uri: encodeURI('http://www.haiyanai.com/'),
+//         stylelite: 1,
+//         state: '123',
+//         fast_login: 1
+//       });
+//
+//       // console.log(obj)
+//     })
+//   }
+// })
 
 defineExpose({
   open
@@ -167,19 +185,6 @@ defineExpose({
     </template>
 
     <div class="cpa-flex cpa-row cpa-pt-10">
-      <!--    左侧微信登录  -->
-      <div class="cpa-flex cpa-column cpa-align-center">
-        <div class="qrcode">
-          <div id="login_container"/>
-        </div>
-        <div class="cpa-mt-20 cpa-flex">
-          <div class="cpa-flex cpa-justify-center cpa-align-center cpa-radius-50 cpa-mr-10"
-               style="width: 15px;height: 15px;background: #00C234;padding: 3px;color: white">
-            <WechatFilled/>
-          </div>
-          请使用微信扫码登录
-        </div>
-      </div>
 
       <template v-if="mode === 1">
         <div v-if="loginSuccess" class="cpa-flex cpa-row cpa-ml-20 cpa-justify-center cpa-align-center cpa-w-full">
@@ -192,10 +197,10 @@ defineExpose({
         <!--    右侧登录  -->
         <div v-else class="cpa-flex cpa-column cpa-ml-20 cpa-flex-1">
           <div class="cpa-flex cpa-row cpa-align-center">
-            <div :class="{ 'cpa-weight-blod': loginType === 1 }" class="cpa-font-16" style="cursor: pointer"
+            <div :class="{ 'cpa-weight-blod active-bottom-line': loginType === 1 }" class="cpa-font-16" style="cursor: pointer"
                  @click="loginType = 1">账号登录
             </div>
-            <div :class="{ 'cpa-weight-blod': loginType === 2 }" class="cpa-font-16 cpa-ml-40" style="cursor: pointer;"
+            <div :class="{ 'cpa-weight-blod active-bottom-line': loginType === 2 }" class="cpa-font-16 cpa-ml-40" style="cursor: pointer;"
                  @click="loginType = 2">短信登录
             </div>
           </div>
@@ -210,9 +215,9 @@ defineExpose({
             >
               <a-form-item
                   name="account"
-                  :rules="[{ required: true, message: '请输入手机号/邮箱/用户名' }]"
+                  :rules="[{ required: true, message: '请输入用户名' }]"
               >
-                <a-input size="large" v-model:value="form1.account" placeholder="手机号/邮箱/用户名"/>
+                <a-input size="large" v-model:value="form1.account" placeholder="用户名"/>
               </a-form-item>
 
               <a-form-item
@@ -224,7 +229,7 @@ defineExpose({
 
               <div class="cpa-flex cpa-row cpa-align-center cpa-justify-between cpa-mb-10">
                 <div class="cpa-color-info" style="cursor: pointer;">
-                  忘记密码？
+<!--                  忘记密码？-->
                 </div>
                 <div class="cpa-color-link" style="cursor: pointer;" @click="mode = 2">
                   立即注册
@@ -239,7 +244,7 @@ defineExpose({
 
           </div>
 
-          <div v-else-if="loginType === 2" class="cpa-flex cpa-column cpa-w-full cpa-mt-10">
+          <div v-else-if="loginType === 2" class="cpa-flex cpa-column cpa-w-full cpa-mt-20">
 <!--            <div class="cpa-font-12 cpa-color-info">验证即登录，未注册将自动创建账号</div>-->
             <a-form
                 :model="form2"
@@ -270,7 +275,7 @@ defineExpose({
 
               <div class="cpa-flex cpa-row cpa-align-center cpa-justify-between cpa-mb-10">
                 <div class="cpa-color-info" style="cursor: pointer;">
-                  忘记密码？
+<!--                  忘记密码？-->
                 </div>
                 <div class="cpa-color-link" style="cursor: pointer;" @click="mode = 2">
                   立即注册
@@ -356,5 +361,10 @@ defineExpose({
   display: flex;
   flex-direction: row;
   justify-content: center;
+}
+
+.active-bottom-line {
+  border-bottom: 2px solid #1677ff;
+  color: #1677ff;
 }
 </style>

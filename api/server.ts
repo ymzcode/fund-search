@@ -35,6 +35,14 @@ export default new class server extends Http {
         return this.post('/auth/register', data)
     }
 
+    public loginBySms(data: any) {
+        return this.postX('/auth/loginBySms', data)
+    }
+
+    public logout(data: any) {
+        return this.postX('/auth/logout', data)
+    }
+
 
 
 }
