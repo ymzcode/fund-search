@@ -3,13 +3,13 @@ import config from "~/utils/config";
 import {message} from 'ant-design-vue';
 import {Form} from 'ant-design-vue';
 import {loadExternalScript} from "~/utils";
-
+import server from "~/api/server";
 
 const props = defineProps({})
 
 const useForm = Form.useForm;
 
-const {server} = useApi()
+
 const appStore = useAppStore()
 
 const loginType = ref(1)
@@ -84,7 +84,7 @@ const sendCode = async () => {
 
   // 发送验证码
   codeData.isSendLoading = true
-  await server.sendSmsRegister({
+  await server.sendSmsLogin({
     phone: form2.phone
   }).then(res => {
     console.log(res)
@@ -131,6 +131,7 @@ const reSet = () => {
   form1.account = ''
   form1.password = ''
 }
+
 
 watch(() => appStore.openDialog, (val) => {
   if (val && !wxLoginVal.value) {
@@ -239,7 +240,7 @@ defineExpose({
           </div>
 
           <div v-else-if="loginType === 2" class="cpa-flex cpa-column cpa-w-full cpa-mt-10">
-            <div class="cpa-font-12 cpa-color-info">验证即登录，未注册将自动创建账号</div>
+<!--            <div class="cpa-font-12 cpa-color-info">验证即登录，未注册将自动创建账号</div>-->
             <a-form
                 :model="form2"
                 name="code"
@@ -301,8 +302,8 @@ defineExpose({
 
       <!--    注册右侧登录  -->
       <template v-if="mode === 2">
-        <div class="cpa-flex cpa-column cpa-ml-20 cpa-flex-1">
-          <div class="cpa-flex  cpa-row cpa-align-center">
+        <div class="cpa-flex cpa-column cpa-w-full">
+          <div class="cpa-flex  cpa-row cpa-align-center cpa-ml-20">
             <div style="cursor: pointer" @click="mode = 1">
               < 返回
             </div>
@@ -318,73 +319,7 @@ defineExpose({
             </div>
           </div>
 
-          <div class="cpa-flex cpa-column cpa-w-full cpa-mt-20">
-            <a-form
-                :model="form3"
-                autocomplete="off"
-                @finish="onFinish3"
-                @finishFailed="onFinishFailed"
-            >
-
-              <template v-if="form3.step === 1">
-                <a-form-item
-                    name="phone"
-                    :rules="[{ required: true, message: '请输入手机号' }]"
-                >
-                  <a-input size="large" v-model:value="form3.phone" placeholder="手机号"/>
-                </a-form-item>
-
-                <a-form-item
-                    name="code"
-                    :rules="[{ required: true, message: '请输入验证码' }]"
-                >
-                  <a-input-group compact size="large" style="display: flex" class="cpa-flex">
-                    <a-input v-model:value="form3.code" placeholder="验证码"/>
-                    <a-button type="primary">发送验证码</a-button>
-                  </a-input-group>
-                </a-form-item>
-
-                <a-form-item>
-                  <a-button type="primary" html-type="submit" style="height: 40px" block>立即注册</a-button>
-                </a-form-item>
-              </template>
-
-
-              <template v-if="form3.step === 2">
-                <a-form-item
-                    name="password"
-                    :rules="[{ required: true, message: '请输入密码' }]"
-                >
-                  <a-input size="large" v-model:value="form3.password"
-                           placeholder="含大小写字母和数字密码，不低于8个字符"/>
-                </a-form-item>
-
-                <a-form-item
-                    name="rePassword"
-                    :rules="[{ required: true, message: '请输入验证码' }]"
-                >
-                  <a-input size="large" v-model:value="form3.rePassword" placeholder="确认密码"/>
-                </a-form-item>
-
-                <a-form-item>
-                  <a-button type="primary" html-type="submit" style="height: 40px" block>立即设置</a-button>
-                </a-form-item>
-              </template>
-
-
-            </a-form>
-
-          </div>
-
-          <div v-if="form3.step !== 2" class="cpa-flex">
-            <a-checkbox v-model:checked="privacy">
-              阅读并接受
-              <a>用户协议</a>
-              <a-divider type="vertical"/>
-              <a>隐私政策</a>
-            </a-checkbox>
-          </div>
-
+          <sign-popup />
 
         </div>
       </template>

@@ -32,7 +32,7 @@ const fetch = async (url: string, options?: any, headers?: any) => {
         const _data = await useFetch(reqUrl, {
             ...options, key, headers: customHeaders,
             onResponse({request, response, options}) {
-              console.log('onResponse', request, response, options)
+              // console.log('onResponse', request, response, options)
                 if (response.status === 200 && response._data.code !== 200) {
                     message.error(response?._data?.msg || `请求遇到异常,${JSON.stringify(response._data)}`);
                 }

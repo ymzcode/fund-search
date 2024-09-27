@@ -10,7 +10,7 @@ export default new class server extends Http {
     }
 
     /**
-     * 发送验证码
+     * 发送注册验证码
      */
     public sendSmsRegister(data: any) {
         return this.postX('/auth/sendSmsRegister', data)
@@ -25,6 +25,14 @@ export default new class server extends Http {
 
     public bindByWxWeb(data: any) {
         return this.postX('/userWx/bindByWxWeb', data)
+    }
+
+    public sendSmsLogin(data: any) {
+        return this.postX('/auth/sendSmsLogin', data)
+    }
+
+    public register(data: any) {
+        return this.post('/auth/register', data)
     }
 
 
